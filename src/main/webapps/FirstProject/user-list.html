@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <h2>list of users</h2>
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Last name></th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${user}">
+                    <td th:text="${useer.id}"></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${usr.age}"></td>
+                    <td>
+                        <a th:href="@{/user/edet/{id} (id=${user.id})}"></a>
+
+                        <form th:action="@{/user/delete/{id}(id=${user.id})}" method="post" style="display:inline;"
+                              onsubmit="return confirm('Are you sure you want to delete the user?');">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a
+ th:href="@{/user/add}">Add new user</a>
+</body>
+</html>
