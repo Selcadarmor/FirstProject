@@ -16,13 +16,14 @@ public class UserController {
     @GetMapping
     public String users(Model model) {
         model.addAttribute("users", userService.getAllUser());
-        return "user-list";
+        model.addAttribute("user", new User());
+        return "user-list-and-form";
     }
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("user", new User());
-        return "user-form";
+        return "user-list-and-form";
     }
 
     @PostMapping("/add")
@@ -35,7 +36,7 @@ public class UserController {
     public String showEditForm(@PathVariable Long id, Model model) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
-        return "user-form";
+        return "user-list-and-form";
     }
     @PostMapping ("/update")
     public String updateUser(@ModelAttribute User user) {
