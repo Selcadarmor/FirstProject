@@ -15,24 +15,29 @@ public class UserDao {
 
     @Transactional
     public void save(User user) {
-        em.persist(user);
-    }
-    @Transactional
-    public User getById(Long id) {
-        return em.find(User.class, id);
-    }
-    @Transactional
-    public void delete(Long user) {
-        if(user != null) {
-            em.remove(user);
+        if(user.getId() == null){
+            em.persist(user);
+        } else {
+            em.merge(user);
         }
     }
     @Transactional
-    public void update(User user) {
+    public User findById(Long id) {
+        return em.find(User.class, id);
+    }
+    @Transactional
+    public void delete( Long id) {
+        User user = em.find(User.class, id);
+        if(user != null) {
+            em.remove(em.merge(user));;
+        }
+    }
+    @Transactional
+    public void update (User user) {
         em.merge(user);
     }
     @Transactional
-    public List<User> getAllUser(){
-        return em.createQuery("FROM User", User.class).getResultList();
+    public List<User> findAllUser(){
+        return em.createQuery(" FROM User ", User.class).getResultList();
     }
 }

@@ -15,15 +15,16 @@ public class UserService {
         userDao.save(user);
     }
     public User getUserById(Long id) {
-        return userDao.getById(id);
+        return userDao.findById(id);
     }
+
     public void delete(Long id) {
         userDao.delete(id);
     }
     public void update(User user) {
-        userDao.update(user);
+        userDao.save(user);
     }
     public List<User> getAllUser() {
-        return userDao.getAllUser();
+        return userDao.findAllUser();
     }
 }
