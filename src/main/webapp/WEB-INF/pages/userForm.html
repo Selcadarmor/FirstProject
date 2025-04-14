@@ -3,13 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>User Form</title>
+    <script>
+        function validateForm() {
+            let form = document.forms["userForm"];
+            let name = form["name"].value.trim();
+            let lastName = form["lastName"].value.trim();
+            let email = form["email"].value.trim();
+            let age = form["age"].value.trim();
+
+            let errors = [];
+            if (name === "") errors.push("Name is required.");
+            if (lastName === "") errors.push("Last name is required.");
+            if (email == "") {
+                errors.push("Email is required.");
+            } else if (!email.match(/^[^@]+@[^@]+\.[^@]+$/)) {
+                errors.push("Invalid email format.");
+            }
+            if (age === "" || isNaN(age) || age < 0 || age > 150) {
+                errors.push("Age must be a number between 0 and 150.");
+            }
+
+            if (errors.length > 0) {
+                alert(errors.join("\n"));
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body>
 <h2 th:text="${user.id != null} ? 'Edit User' : 'Add New User'"></h2>
 
-<form th:action="@{/users/{action}(action=${user.id == null ? 'add' : 'update'})}"
+<form name="userForm"
+      th:action="@{/users/{action}(action=${user.id == null ? 'add' : 'update'})}"
       th:object="${user}"
-      method="post">
+      method="post"
+      onsubmit="return validateForm()">
 
     <input type="hidden" th:field="*{id}" name="id"/>
 
