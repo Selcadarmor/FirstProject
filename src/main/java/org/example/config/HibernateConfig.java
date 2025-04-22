@@ -37,6 +37,15 @@ public class HibernateConfig {
     
     @Value("${spring.jpa.properties.hibernate.dialect}")
     private String dialect;
+
+    @Value("${spring.jpa.show-sql}")
+    private String showSql;
+
+    @Value("${spring.jpa.properties.hibernate.format_sql}")
+    private String formatSql;
+
+    @Value("${spring.jpa.hibernate.ddl-auto}")
+    private String ddlAuto;
     
     @Bean
     public DataSource dataSource() {
@@ -64,10 +73,10 @@ public class HibernateConfig {
     }
     private Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.dialect", dialect);
-        properties.setProperty("hibernate.show_sql", "true");
-        properties.setProperty("hibernate.format_sql", "true");
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+        properties.setProperty("dialect", dialect);
+        properties.setProperty("showSql", showSql);
+        properties.setProperty("format_sql", formatSql);
+        properties.setProperty("ddlAuto", ddlAuto);
         return properties;
     }
 }
